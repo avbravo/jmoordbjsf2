@@ -1,0 +1,81 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <composite:interface >
+
+
+        <composite:attribute name="controller" type="java.lang.Object"/> 
+        <composite:attribute name="url" default=""/> 
+
+        <composite:attribute name="renderedList" default="true" />
+        <composite:attribute name="renderedSave" default="true" />
+        <composite:attribute name="renderedNew" default="true"/>
+
+
+        <composite:attribute name="save"  default="save" />
+        <composite:attribute name="block"  default="" />
+  
+        <composite:attribute name="prepareNew" default="prepareNew" />
+        <composite:attribute name="prepareGoList" default="prepareGoList" />
+
+
+    </composite:interface>
+    <composite:implementation>
+
+
+        
+        <b:panelGrid id="panelEdit" colSpans="4,4,4" size="xs" > 
+
+            <p:commandButton rendered="#{cc.attrs.renderedSave}"                          
+                             id="jmoordbjsfCommandButtonSave"
+                             iconAwesome="fa-floppy-o"
+                             title="#{app['button.save']}"
+                             value="#{app['button.save']}"
+                             look="primary"
+                             action="#{cc.attrs.controller[cc.attrs.save]}"
+                             update=":form:content" > 
+                <f:attribute name="controller" value="#{cc.attrs.controller}"/>
+                <f:attribute name="entity" value="#{cc.attrs.entity}"/>
+                <f:attribute name="repository" value="#{cc.attrs.repository}"/>
+                <f:attribute name="searchbyfieldsecond" value="#{cc.attrs.searchbyfieldsecond}"/>
+            </p:commandButton>
+
+            <p:commandButton  iconAwesome="fa-eraser"         
+                              rendered="#{cc.attrs.renderedNew}"  
+                              look="success"
+                              immediate="true"
+                              
+
+                              value= "#{app['button.clear']}"
+                              title="#{app['button.clear']}"
+                              action="#{cc.attrs.controller[cc.attrs.prepareNew]}" 
+                              update=":form:content" >                 
+            </p:commandButton>
+
+
+
+
+            <p:commandButton immediate="true"
+                             look="primary"
+                             value= "#{app['button.search']}"
+                             iconAwesome="fa-share" 
+                             rendered="#{cc.attrs.renderedList}"  
+                             title="#{app['button.search']}" 
+                             action="#{cc.attrs.controller[cc.attrs.prepareGoList]}" >             
+                <f:attribute name="url" value="#{cc.attrs.url}"/>              
+            </p:commandButton>
+
+
+
+        </b:panelGrid>
+
+        <p:blockUI block="#{cc.attrs.block}" trigger="jmoordbjsfCommandButtonSave" />
+
+    </composite:implementation>
+
+</html>

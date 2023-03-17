@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <composite:interface >
+        <composite:attribute name="value" />
+        <composite:attribute name="disabled" default="false" />
+        <composite:attribute name="multiple" default="false" />
+        <composite:attribute name="dropdown"  default="false"/>
+        <composite:attribute name="minQueryLength"  default="1"/>
+        <composite:attribute name="itemLabel" />
+        <composite:attribute name="update" />
+
+        <composite:attribute name="rendered"/>
+        <composite:attribute name="field"/>
+        <composite:attribute name="converter"/>
+        <composite:attribute name="columnpaneltip" default="1"/>
+        <composite:attribute name="labeltip1" />
+        <composite:attribute name="labeltip2" default=""/>
+        <composite:attribute name="labeltip3" default=""/>
+        <composite:attribute name="labeltip4" default=""/>
+        <composite:attribute name="labeltip5" default=""/>
+        <composite:attribute name="labeltip6" default=""/>
+        <composite:attribute name="labelvalue1" default=""/>
+        <composite:attribute name="labelvalue2" default=""/>
+        <composite:attribute name="labelvalue3" default=""/>
+        <composite:attribute name="labelvalue4" default=""/>
+        <composite:attribute name="labelvalue5" default=""/>
+        <composite:attribute name="labelvalue6" default=""/>
+
+
+        <composite:attribute name="calendardatelabel1" default=""/>
+        <composite:attribute name="calendardatelabel2" default=""/>
+        <composite:attribute name="calendardatelabel3" default=""/>
+        <composite:attribute name="calendartimelabel1" default=""/>
+        <composite:attribute name="calendartimelabel2" default=""/>
+        <composite:attribute name="calendartimelabel3" default=""/>
+
+        <composite:attribute name="calendardatevalue1" default=""/>
+        <composite:attribute name="calendardatevalue2" default=""/>
+        <composite:attribute name="calendardatevalue3" default=""/>
+        <composite:attribute name="calendartimevalue1" default=""/>
+        <composite:attribute name="calendartimevalue2" default=""/>
+        <composite:attribute name="calendartimevalue3" default=""/>
+
+
+
+        <composite:attribute name="calendarpatternDate" default="dd/MM/yyyy"/>
+        <composite:attribute name="calendarpatternTime" default="HH:mm:ss a"/>
+        <composite:attribute name="calendarsize" default="8"/>
+
+
+        <composite:attribute name="fromstart" default="true"/>
+        <composite:attribute name="required" default="false" />
+        <composite:attribute name="size"  default="25"/>
+        <composite:attribute name="listener"  
+                             method-signature="void handleSelect(org.primefaces.event.SelectEvent)" />
+        <composite:attribute name="completeMethod"  
+                             method-signature="java.util.List complete(java.lang.String)" />
+
+    </composite:interface>
+    <composite:implementation>
+
+        <p:autoComplete     dropdown="#{cc.attrs.dropdown}" 
+                            disabled="#{cc.attrs.disabled}"    
+                            scrollHeight="250"   
+                            size="#{cc.attrs.size}" 
+                            multiple="#{cc.attrs.multiple}" 
+                            emptyMessage="#{app['info.nohayregistros']}" 
+                            value="#{cc.attrs.value}"  
+                            completeMethod="#{cc.attrs.completeMethod}"    
+                            var="p"
+                            required="#{cc.attrs.required}"
+                            itemLabel="#{cc.attrs.itemLabel}"
+                            itemValue="#{p}" forceSelection="true"> 
+            <f:converter binding="#{cc.attrs.converter}"/>
+            <f:attribute name="field" value="#{cc.attrs.field}"/>
+            <f:attribute name="fromstart" value="#{cc.attrs.fromstart}"/>
+            <f:attribute name="fielddropdown" value="#{cc.attrs.dropdown}"/>
+            <f:attribute name="fieldminquerylength" value="#{cc.attrs.minQueryLength}"/>
+            <p:ajax event="itemSelect" listener="#{cc.attrs.listener}"
+                    update="#{cc.attrs.update}" />  
+            <f:facet name="itemtip">
+                <h:panelGrid columns="#{cc.attrs.columnpaneltip}" cellpadding="5">
+                    <h:outputText value="#{cc.attrs.labeltip1}"/>
+                    <h:outputText value="#{cc.attrs.labelvalue1}"/>
+                    <h:outputText value="#{cc.attrs.labeltip2}" />
+                    <h:outputText value="#{cc.attrs.labelvalue2}" />
+                    <h:outputText value="#{cc.attrs.labeltip3}" />
+                    <h:outputText value="#{cc.attrs.labelvalue3}" />
+                    <h:outputText value="#{cc.attrs.labeltip4}" />
+                    <h:outputText value="#{cc.attrs.labelvalue4}" />
+                    <h:outputText value="#{cc.attrs.labeltip5}" />
+                    <h:outputText value="#{cc.attrs.labelvalue5}" />
+                    <h:outputText value="#{cc.attrs.labeltip6}" />
+                    <h:outputText value="#{cc.attrs.labelvalue}" />
+
+                    <h:outputText value="#{cc.attrs.calendardatelabel1}" />
+                    <p:calendar  disabled="true"  size="#{cc.attrs.calendarsize}"                                  
+                                 pattern="#{cc.attrs.calendarpatternDate}"
+                                 value="#{cc.attrs.calendardatevalue1}"  />
+
+                    <h:outputText value="#{cc.attrs.calendartimelabel1}" />
+                    <p:calendar  disabled="true"  size="#{cc.attrs.calendarsize}"                                  
+                                 pattern="#{cc.attrs.calendarpatternTime}"
+                                 value="#{cc.attrs.calendartimevalue1}"  />
+
+
+                    <h:outputText value="#{cc.attrs.calendardatelabel2}" />
+                    <p:calendar  disabled="true"  size="#{cc.attrs.calendarsize}"                                  
+                                 pattern="#{cc.attrs.calendarpatternDate}"
+                                 value="#{cc.attrs.calendardatevalue2}"  />
+
+                    <h:outputText value="#{cc.attrs.calendartimelabel2}" />
+                    <p:calendar  disabled="true"  size="#{cc.attrs.calendarsize}"                                  
+                                 pattern="#{cc.attrs.calendarpatternTime}"
+                                 value="#{cc.attrs.calendartimevalue2}"  />       
+
+
+                    <h:outputText value="#{cc.attrs.calendardatelabel3}" />
+                    <p:calendar  disabled="true"  size="#{cc.attrs.calendarsize}"                                  
+                                 pattern="#{cc.attrs.calendarpatternDate}"
+                                 value="#{cc.attrs.calendardatevalue3}"  />       
+
+
+                    <h:outputText value="#{cc.attrs.calendartimelabel3}" />
+                    <p:calendar  disabled="true"  size="#{cc.attrs.calendarsize}"                                  
+                                 pattern="#{cc.attrs.calendarpatternTime}"
+                                 value="#{cc.attrs.calendartimevalue3}"  />       
+
+                </h:panelGrid>
+            </f:facet>
+        </p:autoComplete>  
+
+    </composite:implementation>
+
+</html>

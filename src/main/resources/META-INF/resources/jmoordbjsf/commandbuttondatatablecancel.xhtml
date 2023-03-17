@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:b="http://bootsfaces.net/ui">
+    <composite:interface >
+        <composite:attribute name="controller" type="java.lang.Object"/> 
+        <composite:attribute name="item" type="java.lang.Object"/> 
+
+        <composite:attribute name="url" default=""/> 
+        <composite:attribute name="rendered" default="true"/>
+     <composite:attribute name="cancel"  default="cancel" />
+    </composite:interface>
+    <composite:implementation>
+
+ 
+                    <p:commandButton                 
+                        style="margin-bottom:10px;"
+                        title="#{app['button.cancel']}"
+                        immediate="true"              
+                        rendered="#{cc.attrs.rendered}"
+                        action= "#{cc.attrs.controller[cc.attrs.cancel]}" 
+                        >
+                        <f:attribute name="controller" value="#{cc.attrs.controller}"/>
+                        <f:attribute name="item" value="#{cc.attrs.item}"/>
+                        <f:attribute name="url" value="#{cc.attrs.url}"/>
+                    </p:commandButton>
+              
+          
+
+
+    </composite:implementation>
+
+</html>

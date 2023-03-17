@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:composite="http://java.sun.com/jsf/composite"
+      xmlns:b="http://bootsfaces.net/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <composite:interface >
+
+   <composite:attribute name="controller" type="java.lang.Object"/> 
+        <composite:attribute name="label" />
+        <composite:attribute name="title" default="" />
+        <composite:attribute name="value" />
+        <composite:attribute name="pattern" default="dd/MM/yyyy" />
+        <composite:attribute name="columns" default="1" />
+
+        <composite:attribute name="label2" default="" />
+        <composite:attribute name="value2" default=""/>
+        <composite:attribute name="disabled" default="false" />
+        <composite:attribute name="rendererList" />
+
+
+        <composite:attribute name="validateNew" default="validateNew" />
+
+        <composite:attribute name="prepareNew" default="prepareNew" />
+        <composite:attribute name="prepareGoList" default="prepareGoList" />
+
+
+    </composite:interface>
+    <composite:implementation>
+
+
+
+        <p:remoteCommand  update=":form:content :form:panel"
+                          name="remoteid" 
+                          />
+        <b:panel title="#{cc.attrs.title}" look="primary">
+            <b:panelGrid  columns="#{cc.attrs.columns}" size="xs" colSpans="2,1,8,1"> 
+                <p:commandButton  iconAwesome="fa-eraser"         
+                                  look="success"
+                                  title="#{app['button.clear']}"
+                                  action="#{cc.attrs.controller[cc.attrs.prepareNew]}"  update=":form:content" > 
+                    <f:ajax />
+                   
+                </p:commandButton>
+                <p:outputLabel value="#{cc.attrs.label}"/>
+
+                <p:calendar
+                    value="#{cc.attrs.value}"
+                    required="false" 
+                    pattern="#{cc.attrs.pattern}"
+                    disabled="#{cc.attrs.disabled}" 
+                    selectOtherMonths="true"
+                    navigator="true"                    
+                    >
+                    <p:ajax event="dateSelect" 
+                            listener="#{cc.attrs.controller[cc.attrs.validateNew]}"
+                            update=":form:content :form:panel" />
+                   
+                </p:calendar>
+                <p:commandButton immediate="true"
+                                 look="primary"
+                                 iconAwesome="fa-share" 
+                                 rendered="#{cc.attrs.rendererList}" 
+                                 title="#{app['button.search']}" 
+                                 action="#{cc.attrs.controller[cc.attrs.prepareGoList]}">                
+                    
+                </p:commandButton>
+
+            </b:panelGrid>
+        </b:panel>
+    </composite:implementation>
+
+</html>
